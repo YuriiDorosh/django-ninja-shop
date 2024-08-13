@@ -61,27 +61,3 @@ collectstatic:
 .PHONY: run-test
 run-test:
 	${EXEC} ${APP_CONTAINER} pytest
-
-.PHONY: install-deps
-install-deps:
-	${EXEC} ${APP_CONTAINER} poetry install
-
-.PHONY: add-dep
-add-dep:
-	${EXEC} ${APP_CONTAINER} poetry add twilio
-
-.PHONY: remove-dep
-remove-dep:
-	${EXEC} ${APP_CONTAINER} poetry remove ${DEP}
-
-.PHONY: update-deps
-update-deps:
-	${EXEC} ${APP_CONTAINER} poetry update
-
-.PHONY: lock-deps
-lock-deps:
-	${EXEC} ${APP_CONTAINER} poetry lock
-
-.PHONY: export-requirements
-export-requirements:
-	${EXEC} ${APP_CONTAINER} poetry export -f requirements.txt --output requirements.txt --without-hashes
