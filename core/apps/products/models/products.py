@@ -13,6 +13,39 @@ class Product(TimedBaseModel):
         verbose_name='Product Description',
         blank=True,
     )
+    article = models.UUIDField(
+        verbose_name='Product Article',
+        unique=True,
+        db_index=True,
+    )
+    price = models.DecimalField(
+        verbose_name='Product Price',
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+    )
+    new_price = models.DecimalField(
+        verbose_name='Product New Price',
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+    )
+    end_of_new_price = models.DateTimeField(
+        verbose_name='End of New Price',
+        blank=True,
+        null=True,
+    )
+    main_img = models.ImageField(
+        verbose_name='Main Image',
+        upload_to='products',
+        blank=True,
+        null=True,
+    )
+    is_owned = models.BooleanField(
+        verbose_name='Is Owned',
+        default=False,
+        db_index=True,
+    )
     is_visible = models.BooleanField(
         verbose_name='Is Visible',
         default=True,
