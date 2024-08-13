@@ -18,6 +18,8 @@ class SellerApplication(TimedBaseModel):
     approved = models.BooleanField(
         verbose_name='Approved',
         default=False,
+        db_comment='If true, the seller application is approved and the seller\
+            (sellers_sellers) will be created with login and password from letter.',
     )
 
     def to_entity(self) -> SellerApplicationEntity:
@@ -37,6 +39,12 @@ class SellerApplication(TimedBaseModel):
         verbose_name = 'Seller Application'
         verbose_name_plural = 'Seller Applications'
 
+        ordering = ('-created_at',)
+
+        db_table = 'sellers_seller_applications'
+        db_table_comment = 'Table for storing seller applications. After approval, \
+            the seller will be created.'
+
 
 class Seller(TimedBaseModel):
     seller_application = models.OneToOneField(
@@ -48,10 +56,14 @@ class Seller(TimedBaseModel):
         verbose_name='Login',
         max_length=255,
         unique=True,
+        db_comment='Seller login for authentication. Automatically generated after \
+            approval of the seller application.',
     )
     password = models.CharField(
         verbose_name='Password',
         max_length=255,
+        db_comment='Seller password for authentication. Automatically generated \
+            after approval of the seller application.',
     )
     company_name = models.CharField(
         verbose_name='Company Name',
@@ -91,22 +103,5 @@ class Seller(TimedBaseModel):
         verbose_name = 'Seller'
         verbose_name_plural = 'Sellers'
 
-
-class SellerProduct(TimedBaseModel):
-    seller = models.ForeignKey(
-        Seller,
-        on_delete=models.CASCADE,
-        related_name='products',
-    )
-    product = models.ForeignKey(
-        'products.Product',
-        on_delete=models.CASCADE,
-        related_name='sellers',
-    )
-
-    def __str__(self):
-        return f"{self.seller.company_name} - {self.product.title}"
-
-    class Meta:
-        verbose_name = 'Seller Product'
-        verbose_name_plural = 'Seller Products'
+        db_table = 'sellers_sellers'
+        db_table_comment = 'Table for storing sellers. After approval, the seller will be created in this table.'

@@ -22,6 +22,7 @@ class Customer(TimedBaseModel):
         max_length=255,
         default=uuid4,
         unique=True,
+        db_comment='Token for user authentication',
     )
 
     def __str__(self) -> str:
@@ -37,3 +38,6 @@ class Customer(TimedBaseModel):
     class Meta:
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
+
+        db_table = 'customers_customers'
+        db_table_comment = 'Table for storing customers'
