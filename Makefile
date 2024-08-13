@@ -68,7 +68,7 @@ install-deps:
 
 .PHONY: add-dep
 add-dep:
-	${EXEC} ${APP_CONTAINER} poetry add ${DEP}
+	${EXEC} ${APP_CONTAINER} poetry add twilio
 
 .PHONY: remove-dep
 remove-dep:
@@ -84,4 +84,4 @@ lock-deps:
 
 .PHONY: export-requirements
 export-requirements:
-	${EXEC} ${APP_CONTAINER} poetry export -f requirements.txt --output requirements.txt
+	${EXEC} ${APP_CONTAINER} poetry export -f requirements.txt --output requirements.txt --without-hashes

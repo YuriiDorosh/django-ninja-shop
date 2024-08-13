@@ -14,6 +14,14 @@
 
 2. Install all required packages in `Requirements` section.
 
+3. Pre-commit:
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   pre-commit autoupdate
+
+   pre-commit run --all-files
+   ```
 
 ### Implemented Commands
 
