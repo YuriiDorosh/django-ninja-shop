@@ -26,7 +26,7 @@ def auth_handler(request: HttpRequest, schema: AuthInSchema) -> ApiResponse[Auth
 
     return ApiResponse(
         data=AuthOutSchema(
-            message=f'Code is sent to: {schema.phone}',
+            message=f'Code is sent to: {schema.email}',
         ),
     )
 
