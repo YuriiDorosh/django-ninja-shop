@@ -41,6 +41,10 @@ db-logs:
 app-down:
 	${DC} -f ${APP_FILE} -f ${STORAGES_FILE} down
 
+.PHONY: app-down-2
+app-down-2:
+	docker stop main-app example-db 
+
 .PHONY: migrate
 migrate:
 	${EXEC} ${APP_CONTAINER} ${MANAGE_PY} migrate

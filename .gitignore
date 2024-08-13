@@ -7,3 +7,4 @@ static/*
 *.sqlite*
 .venv/
 __pycache__/
+logs/
