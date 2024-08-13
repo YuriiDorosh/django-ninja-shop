@@ -12,19 +12,32 @@ class Customer(TimedBaseModel):
         max_length=20,
         unique=True,
     )
+    email = models.EmailField(
+        verbose_name='Email',
+        max_length=255,
+        unique=True,
+    )
     token = models.CharField(
         verbose_name='User Token',
         max_length=255,
         default=uuid4,
         unique=True,
+        db_comment='Token for user authentication',
     )
 
     def __str__(self) -> str:
-        return self.phone
+        return f"Customer with phone {self.phone} and email {self.email}"
 
     def to_entity(self) -> CustomerEntity:
-        return CustomerEntity(phone=self.phone, created_at=self.created_at)
+        return CustomerEntity(
+            phone=self.phone,
+            email=self.email,
+            created_at=self.created_at,
+        )
 
     class Meta:
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
+
+        db_table = 'customers_customers'
+        db_table_comment = 'Table for storing customers'

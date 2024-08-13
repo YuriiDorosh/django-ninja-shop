@@ -5,6 +5,11 @@ from abc import (
 from dataclasses import dataclass
 from typing import Iterable
 
+from django.conf import settings
+from django.core.mail import send_mail
+
+from twilio.rest import Client
+
 from core.apps.customers.entities import CustomerEntity
 
 
@@ -21,12 +26,23 @@ class DummySenderService(BaseSenderService):
 
 class EmailSenderService(BaseSenderService):
     def send_code(self, customer: CustomerEntity, code: str) -> None:
-        print(f'sent code {code} to user email: customeremail')
+        send_mail(
+            subject='Your code',
+            message=f'Your code is {code}',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[customer.email],
+            fail_silently=False,
+        )
 
 
-class PushSenderService(BaseSenderService):
+class TwilloSenderService(BaseSenderService):
     def send_code(self, customer: CustomerEntity, code: str) -> None:
-        print(f'sent push notification with {code} fcm_token')
+        twillo_service: Client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+        twillo_service.messages.create(
+            body=f'Your code is {code}',
+            from_=settings.TWILIO_NUMBER,
+            to=customer.phone,
+        )
 
 
 @dataclass

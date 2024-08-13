@@ -22,11 +22,11 @@ def auth_handler(request: HttpRequest, schema: AuthInSchema) -> ApiResponse[Auth
     container = get_container()
     service = container.resolve(BaseAuthService)
 
-    service.authorize(schema.phone)
+    service.authorize(phone=schema.phone, email=schema.email)
 
     return ApiResponse(
         data=AuthOutSchema(
-            message=f'Code is sent to: {schema.phone}',
+            message=f'Code is sent to: {schema.email}',
         ),
     )
 

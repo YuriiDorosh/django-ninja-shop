@@ -25,8 +25,8 @@ class BaseAuthService(ABC):
 
 
 class AuthService(BaseAuthService):
-    def authorize(self, phone: str):
-        customer = self.customer_service.get_or_create(phone)
+    def authorize(self, phone: str, email: str):
+        customer = self.customer_service.get_or_create(phone=phone, email=email)
         code = self.codes_service.generate_code(customer)
         self.sender_service.send_code(customer, code)
 

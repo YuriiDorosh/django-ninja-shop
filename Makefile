@@ -41,6 +41,10 @@ db-logs:
 app-down:
 	${DC} -f ${APP_FILE} -f ${STORAGES_FILE} down
 
+.PHONY: app-down-2
+app-down-2:
+	docker stop main-app example-db 
+
 .PHONY: migrate
 migrate:
 	${EXEC} ${APP_CONTAINER} ${MANAGE_PY} migrate
@@ -62,26 +66,6 @@ collectstatic:
 run-test:
 	${EXEC} ${APP_CONTAINER} pytest
 
-.PHONY: install-deps
-install-deps:
-	${EXEC} ${APP_CONTAINER} poetry install
-
-.PHONY: add-dep
-add-dep:
-	${EXEC} ${APP_CONTAINER} poetry add twilio
-
-.PHONY: remove-dep
-remove-dep:
-	${EXEC} ${APP_CONTAINER} poetry remove ${DEP}
-
-.PHONY: update-deps
-update-deps:
-	${EXEC} ${APP_CONTAINER} poetry update
-
-.PHONY: lock-deps
-lock-deps:
-	${EXEC} ${APP_CONTAINER} poetry lock
-
-.PHONY: export-requirements
-export-requirements:
-	${EXEC} ${APP_CONTAINER} poetry export -f requirements.txt --output requirements.txt --without-hashes
+.PHONY: run-test-2
+run-test-2:
+	${EXEC} ${APP_CONTAINER} sh -c 'export DJANGO_SETTINGS_MODULE=core.project.settings.local && pytest'
