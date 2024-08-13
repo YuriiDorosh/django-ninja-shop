@@ -2,11 +2,11 @@ from uuid import uuid4
 
 from django.db import models
 
-from core.apps.common.models import TimedBaseModel
+from core.apps.common.models import TimedAndUnixIdBaseModel
 from core.apps.customers.entities import CustomerEntity
 
 
-class Customer(TimedBaseModel):
+class Customer(TimedAndUnixIdBaseModel):
     phone = models.CharField(
         verbose_name='Phone Number',
         max_length=20,

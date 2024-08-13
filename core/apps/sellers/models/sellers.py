@@ -1,11 +1,11 @@
 from django.db import models
 
-from core.apps.common.models import TimedBaseModel
+from core.apps.common.models import TimedAndUnixIdBaseModel
 from core.apps.sellers.entities.sellers import Seller as SellerEntity
 from core.apps.sellers.entities.sellers_application import SellerApplication as SellerApplicationEntity
 
 
-class SellerApplication(TimedBaseModel):
+class SellerApplication(TimedAndUnixIdBaseModel):
     presentation_text = models.TextField(
         verbose_name='Presentation Text',
         blank=True,
@@ -46,11 +46,10 @@ class SellerApplication(TimedBaseModel):
             the seller will be created.'
 
 
-class Seller(TimedBaseModel):
+class Seller(TimedAndUnixIdBaseModel):
     seller_application = models.OneToOneField(
         SellerApplication,
         on_delete=models.PROTECT,
-        primary_key=True,
     )
     login = models.CharField(
         verbose_name='Login',
