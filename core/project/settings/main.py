@@ -27,6 +27,7 @@ config_files = [
     "logging_comp.py",
     "media.py",
     "middleware.py",
+    "smtp.py",
     "static.py",
     "templates.py",
     "timezone.py",

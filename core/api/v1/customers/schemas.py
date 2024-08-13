@@ -3,6 +3,7 @@ from ninja import Schema
 
 class AuthInSchema(Schema):
     phone: str
+    email: str
 
 
 class AuthOutSchema(Schema):
@@ -15,4 +16,5 @@ class TokenOutSchema(Schema):
 
 class TokenInSchema(Schema):
     phone: str
+    email: str
     code: str

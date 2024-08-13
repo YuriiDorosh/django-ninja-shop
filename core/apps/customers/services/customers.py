@@ -10,7 +10,7 @@ from core.apps.customers.models import Customer as CustomerModel
 
 class BaseCustomerService(ABC):
     @abstractmethod
-    def get_or_create(self, phone: str) -> CustomerEntity:
+    def get_or_create(self, phone: str, email: str) -> CustomerEntity:
         ...
 
     @abstractmethod
@@ -23,8 +23,8 @@ class BaseCustomerService(ABC):
 
 
 class ORMCustomerService(BaseCustomerService):
-    def get_or_create(self, phone: str) -> CustomerEntity:
-        user_dto, _ = CustomerModel.objects.get_or_create(phone=phone)
+    def get_or_create(self, phone: str, email: str) -> CustomerEntity:
+        user_dto, _ = CustomerModel.objects.get_or_create(phone=phone, email=email)
         return user_dto.to_entity()
 
     def get(self, phone: str) -> CustomerEntity:
