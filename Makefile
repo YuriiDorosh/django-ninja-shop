@@ -65,3 +65,7 @@ collectstatic:
 .PHONY: run-test
 run-test:
 	${EXEC} ${APP_CONTAINER} pytest
+
+.PHONY: run-test-2
+run-test-2:
+	${EXEC} ${APP_CONTAINER} sh -c 'export DJANGO_SETTINGS_MODULE=core.project.settings.local && pytest'
