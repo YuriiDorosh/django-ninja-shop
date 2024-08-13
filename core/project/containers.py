@@ -19,6 +19,10 @@ from core.apps.customers.services.senders import (
     ComposedSenderService,
     EmailSenderService,
 )
+from core.apps.products.services.articles import (
+    BaseGenerateArticleService,
+    GenerateUuidArticleService,
+)
 from core.apps.products.services.products import (
     BaseProductService,
     ORMProductService,
@@ -35,6 +39,7 @@ def _initialize_container() -> punq.Container:
 
     # initialize products
     container.register(BaseProductService, ORMProductService)
+    container.register(BaseGenerateArticleService, GenerateUuidArticleService)
 
     # initialize customers
     container.register(BaseCustomerService, ORMCustomerService)
